@@ -1,0 +1,22 @@
+{
+  "name": "yp-ssg",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format:check": "prettier --check --ignore-path .gitignore './**/*.{js,ts,json,css}'",
+    "format:fix": "prettier --write --ignore-path .gitignore './**/*.{js,ts,json,css}'"
+
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "prettier": "3.5.3"
+  }
+}
