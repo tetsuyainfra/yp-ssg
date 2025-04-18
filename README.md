@@ -26,3 +26,8 @@ using their programs
 - nodejs for 11ty
 - python for Djlint(linter)
 - uv for Djlint(linter)
+
+
+# Licenses
+## including OSS
+- https://github.com/madrilene/eleventy-excellent (ISC, MIT, SIL)

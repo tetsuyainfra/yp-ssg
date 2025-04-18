@@ -1,0 +1,10 @@
+---
+permalink: /style.css
+---
+
+{# Use PostCSS filter to provide inlined css #}
+{% set css %}
+    {% include "src/_styles/global.css" %}
+    {% include "src/_styles/tailwind.css" %}
+{% endset %}
+{{ css | postcss | safe }}

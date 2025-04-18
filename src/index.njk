@@ -6,5 +6,8 @@ layout: base.njk
   <p>ベストなSSGを探しに我々はアマゾンの奥地へと向かった。</p>
 </main>
 <nav>
-  <!-- あとでここに記事へのナビゲーションを付けます -->
+  {{ page.url }}
+  {{ page.fileSlug }}
+  {{ page.date }}
+  {{ eleventy .version }}
 </nav>
