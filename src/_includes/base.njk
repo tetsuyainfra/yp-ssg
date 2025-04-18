@@ -2,8 +2,8 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <meta name="keywords" content="PeerCast yellow-page YP Developper" />
-    <meta name="description" content="開発向けYP" />
+    {# <meta name="keywords" content="PeerCast yellow-page YP Developper" />
+    <meta name="description" content="開発向けYP" /> #}
     <title>
       {%- if title %}
         {{ title }}
@@ -16,5 +16,16 @@
     <meta name="description"
           content="{%- if description -%} {{ description }} {%- else -%} {{ metadata.description }} {%- endif -%}" />
   </head>
-  <body>{{ content | safe }}</body>
+  <body>
+    <nav>
+      <ul>
+        {%- for item in nav.items %}
+          <li>
+            <a href="{{ item.url }}">{{ item.title }}</a>
+          </li>
+        {%- endfor %}
+      </ul>
+    </nav>
+    {{ content | safe }}
+  </body>
 </html>

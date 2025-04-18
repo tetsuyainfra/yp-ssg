@@ -1,0 +1,7 @@
+{
+  "items": [
+    { "url": "/", "title": "TOP" },
+    { "url": "/broadcast", "title": "配信する" },
+    { "url": "/contact", "title": "規約" }
+  ]
+}
