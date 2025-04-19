@@ -10,3 +10,4 @@ dependencies = [
 
 [tool.djlint]
 profile="nunjucks"
+ignore="H022" # ignore external https link
