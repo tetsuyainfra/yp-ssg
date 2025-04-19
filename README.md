@@ -10,16 +10,27 @@ $ cd yp-ssg
 # create venv automatically
 
 # build/serve
+$ npm run dev
 $ npm run build
-$ npm run serve
 
 # format
 $ npm run format:check
 $ npm run format:fix
 
 # lint
-
 ```
+
+# Directory
+- src
+  - _data: variables
+  - _include: template
+  - _styles: css
+  - js-bundle.njk for global javascript
+  - css-bundle.njk for global css
+  - index.njk: / page
+  - broadcast: /broadcast page
+  - contact: /contact page
+  - client : run on Browser, compiled by Vite
 
 # Tools
 using their programs 

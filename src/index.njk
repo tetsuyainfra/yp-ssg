@@ -1,5 +1,19 @@
 ---
 layout: base.njk
+bodyAttrs: onload='renderIndexShow("channel_index")'
+eleventyComputed:
+  header_scripts: |
+    {% if build.env === "production" %}
+      <script type="module" src="/vite-index_show.js"></script>
+    {% else %}
+      <script type="module">import {renderIndexShow} from "http://localhost:5173/src/client/index_show.tsx"</script>
+    {% endif %}
+
+    {% if build.env === "production" %}
+      <script type="module" src="/vite-main.js"></script>
+    {% else %}
+      <script type="module" src="http://localhost:5173/src/client/main.js"></script>
+    {% endif %}
 ---
 
 <main>
@@ -11,8 +25,5 @@ layout: base.njk
   {{ page.date }}
   {{ eleventy .version }}
 </nav>
-{% if build.env === "production" %}
-  <script type="module" src="./main.js"></script>
-{% else %}
-  <script type="module" src="http://localhost:5173/src/client/main.js"></script>
-{% endif %}
+<hr />
+<div id="channel_index"></div>
