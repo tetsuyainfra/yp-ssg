@@ -19,9 +19,13 @@
     {% set css %}
     {% endset %}
     <style>{{css | postcss | safe}}</style>
-    {%- if header_scripts %}{{ header_scripts | safe }}{%- endif %}
+    {# {%- if header_scripts %}{{ header_scripts | safe }}{%- endif %} #}
+    {% block header %}
+    <script>console.log("header");</script>
+    {% endblock header %}
   </head>
   <body {{ bodyAttrs | safe }}>
+
     <nav>
       <ul>
         {%- for item in nav.items %}
@@ -31,7 +35,13 @@
         {%- endfor %}
       </ul>
     </nav>
-    {{ content | safe }}
+    {% block XXX %}
+    XXX
+    {% endblock XXX %}
+
+    {% block content %}
+      {{ content | safe }}
+    {% endblock content %}
   </body>
 </html>
 {% set js %}

@@ -1,5 +1,4 @@
 ---
-layout: base.njk
 bodyAttrs: onload='renderIndexShow("channel_index")'
 eleventyComputed:
   header_scripts: |
@@ -15,17 +14,24 @@ eleventyComputed:
       <script type="module" src="http://localhost:5173/src/client/main.js"></script>
     {% endif %}
 ---
+{% extends "base.njk" %}
+{# layout: base.njk #}
 
+{% block XXX %}
+<h2>自己紹介</h2>
+<p>こんにちは〜</p>
+{% endblock XXX %}
+
+{% block content %}
 <main>
   <hr />
   <div id="channel_index">
     <p>ベストなSSGを探しに我々はアマゾンの奥地へと向かった。</p>
   </div>
   <hr />
-  <nav>
-    {{ page.url }}
-    {{ page.fileSlug }}
-    {{ page.date }}
-    {{ eleventy .version }}
-  </nav>
+  <pre>
+    {{ page | dump('\t') }}
+    {{ eleventy | dump('\t') }}
+  </pre>
 </main>
+{% endblock content %}
