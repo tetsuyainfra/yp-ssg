@@ -17,13 +17,15 @@ eleventyComputed:
 ---
 
 <main>
-  <p>ベストなSSGを探しに我々はアマゾンの奥地へと向かった。</p>
+  <hr />
+  <div id="channel_index">
+    <p>ベストなSSGを探しに我々はアマゾンの奥地へと向かった。</p>
+  </div>
+  <hr />
+  <nav>
+    {{ page.url }}
+    {{ page.fileSlug }}
+    {{ page.date }}
+    {{ eleventy .version }}
+  </nav>
 </main>
-<nav>
-  {{ page.url }}
-  {{ page.fileSlug }}
-  {{ page.date }}
-  {{ eleventy .version }}
-</nav>
-<hr />
-<div id="channel_index"></div>
