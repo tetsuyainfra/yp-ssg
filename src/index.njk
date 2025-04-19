@@ -30,8 +30,9 @@ eleventyComputed:
   </div>
   <hr />
   <pre>
-    {{ page | dump('\t') }}
-    {{ eleventy | dump('\t') }}
+    {# {{ page | dump('\t') }} #}
+    {# {{ eleventy | dump('\t') }} #}
+    {{ metadata | dump('\t') }}
   </pre>
 </main>
 {% endblock content %}

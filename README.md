@@ -2,6 +2,10 @@
 Yellow page for peercast-root on SSG(StaticSiteGenerator)
 genreated by 11ty(eleventy)
 
+# TODO
+- siteName, indexTxtUrl, indexJsonUrlをJSONに埋め込む方法を作る
+- tailwind cssを使えるようにする
+- IndexChannelListを作る
 
 # how to build
 ```shell
