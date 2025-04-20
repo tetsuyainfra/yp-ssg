@@ -24,8 +24,29 @@ export default async function (eleventyConfig) {
   });
   eleventyConfig.addTemplateFormats("11ty.ts,11ty.tsx");
 
+  //compile tailwind before eleventy processes the files
+  // eleventyConfig.on("eleventy.before", async () => {
+  //   const tailwindInputPath = path.resolve("./src/assets/styles/index.css");
+  //   const tailwindOutputPath = "./dist/assets/styles/index.css";
+  //   const cssContent = fs.readFileSync(tailwindInputPath, "utf8");
+  //   const outputDir = path.dirname(tailwindOutputPath);
+  //   if (!fs.existsSync(outputDir)) {
+  //     fs.mkdirSync(outputDir, { recursive: true });
+  //   }
+
+  //   const result = await processor.process(cssContent, {
+  //     from: tailwindInputPath,
+  //     to: tailwindOutputPath,
+  //   });
+  //   fs.writeFileSync(tailwindOutputPath, result.css);
+  // });
+
+  eleventyConfig.addWatchTarget("./src/client/");
+
+  eleventyConfig.addWatchTarget("./src/_styles/");
   eleventyConfig.addNunjucksAsyncFilter("postcss", (cssCode, done) => {
-    postcss([tailwindcss(), autoprefixer()])
+    postcss([])
+      // .process(cssCode, { from: "a.css", to: "output.css" })
       .process(cssCode, { from: undefined })
       .then(
         (r) => done(null, r.css),

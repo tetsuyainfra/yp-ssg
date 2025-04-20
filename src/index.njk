@@ -1,38 +1,37 @@
 ---
-bodyAttrs: onload='renderIndexShow("channel_index")'
-eleventyComputed:
-  header_scripts: |
-    {% if build.env === "production" %}
-      <script type="module" src="/vite-index_show.js"></script>
-    {% else %}
-      <script type="module">import {renderIndexShow} from "http://localhost:5173/src/client/index_show.tsx"</script>
-    {% endif %}
-
-    {% if build.env === "production" %}
-      <script type="module" src="/vite-main.js"></script>
-    {% else %}
-      <script type="module" src="http://localhost:5173/src/client/main.js"></script>
-    {% endif %}
 ---
 {% extends "base.njk" %}
-{# layout: base.njk #}
 
-{% block XXX %}
-<h2>自己紹介</h2>
-<p>こんにちは〜</p>
-{% endblock XXX %}
+{% block header_block %}
+  {# IndexJsonComponent #}
+  {% if build.env === "production" %}
+    <script type="module" src="/vite-render_index.js"></script>
+    <script type="module" src="/vite-render_url.js"></script>
+  {% else %}
+    <script type="module">import {renderIndexShow} from "http://localhost:5173/src/client/render_index.tsx"</script>
+    <script type="module">import {renderUrl} from "http://localhost:5173/src/client/render_url.tsx"</script>
+  {% endif %}
+  <script>
+    window.addEventListener("load", (event) => {
+      renderIndexShow("channel_index", "{{ metadata.indexJsonUrl | safe}}")
+      renderUrl("copy_index_url", "{{ metadata.indexTxtUrl | safe }}", "YPブラウザ用URL")
+    });
+  </script>
+
+{% endblock header_block %}
 
 {% block content %}
-<main>
-  <hr />
-  <div id="channel_index">
-    <p>ベストなSSGを探しに我々はアマゾンの奥地へと向かった。</p>
-  </div>
-  <hr />
-  <pre>
+  <main>
+    <p>あいうえお</p>
+    <div id="copy_index_url"></div>
+    <p>kokokoko</p>
+    <div id="channel_index">
+      <p>ベストなSSGを探しに我々はアマゾンの奥地へと向かった。</p>
+    </div>
+    <pre>
     {# {{ page | dump('\t') }} #}
     {# {{ eleventy | dump('\t') }} #}
-    {{ metadata | dump('\t') }}
+metadata: {{ metadata | dump('\t') }}
   </pre>
-</main>
+  </main>
 {% endblock content %}

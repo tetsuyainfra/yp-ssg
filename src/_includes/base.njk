@@ -15,29 +15,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description"
           content="{%- if description -%} {{ description }} {%- else -%} {{ metadata.description }} {%- endif -%}" />
-    {# <script src="/static/bundle.js"></script> #}
-    {% set css %}
-    {% endset %}
-    <style>{{css | postcss | safe}}</style>
-    {# {%- if header_scripts %}{{ header_scripts | safe }}{%- endif %} #}
-    {% block header %}
-    <script>console.log("header");</script>
-    {% endblock header %}
+
+    <link href="/style.css" rel="stylesheet" />
+    <script src="/bundle.js"></script>
+
+    {% block header_block %}
+      {{ header_scripts | safe }}
+    {% endblock header_block %}
   </head>
   <body {{ bodyAttrs | safe }}>
 
+    {% block nav %}
     <nav>
       <ul>
         {%- for item in nav.items %}
           <li>
-            <a href="{{ item.url }}">{{ item.title }}</a>
+            <a href="{{ item.url }}"
+              class="hover:text-sky-400">
+              {{ item.title }}
+            </a>
           </li>
         {%- endfor %}
       </ul>
     </nav>
-    {% block XXX %}
-    XXX
-    {% endblock XXX %}
+    {% endblock nav %}
 
     {% block content %}
       {{ content | safe }}

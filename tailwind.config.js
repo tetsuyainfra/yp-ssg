@@ -1,13 +1,6 @@
 module.exports = {
-  content: ["./**/*.html"],
-  theme: {
-    container: {
-      center: true,
-    },
-    extend: {
-      colors: {},
-    },
-  },
+  content: ["./src/**/*.{njk,md,tsx}"],
+  // theme: {},
   variants: {},
   //   plugins: [require("@tailwindcss/typography")],
   plugins: [],
