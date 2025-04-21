@@ -1,7 +1,7 @@
 ---
 ---
-{% extends "base.njk" %}
 
+{% extends "base.njk" %}
 {% block header_block %}
   {# IndexJsonComponent #}
   {% if build.env === "production" %}
@@ -17,21 +17,27 @@
       renderUrl("copy_index_url", "{{ metadata.indexTxtUrl | safe }}", "YPブラウザ用URL")
     });
   </script>
-
 {% endblock header_block %}
-
 {% block content %}
   <main>
-    <p>あいうえお</p>
-    <div id="copy_index_url"></div>
-    <p>kokokoko</p>
-    <div id="channel_index">
-      <p>ベストなSSGを探しに我々はアマゾンの奥地へと向かった。</p>
-    </div>
-    <pre>
+    <section class="bg-indigo-50 px-6 py-24 text-center rounded-xl">
+      <h1 class="mb-4 text-4xl font-extrabold">次世代のペカ体験を。</h1>
+      <p class="mb-6 text-lg">ここはみんなの実験場</p>
+      <a class="rounded-xl bg-indigo-600 px-6 py-3 text-white transition hover:bg-indigo-700 disabled:opacity-50"
+         href="/broadcast/">配信する</a>
+    </section>
+    <section class="py-6">
+      <div id="copy_index_url"></div>
+    </section>
+    <section class="pb-6">
+      <div id="channel_index">
+        <p>ベストなSSGを探しに我々はアマゾンの奥地へと向かった。</p>
+      </div>
+    </section>
+    <!--
     {# {{ page | dump('\t') }} #}
     {# {{ eleventy | dump('\t') }} #}
-metadata: {{ metadata | dump('\t') }}
-  </pre>
+metadata: {{ metadata | dump('\t') | safe}}
+    -->
   </main>
 {% endblock content %}

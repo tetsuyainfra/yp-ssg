@@ -21,7 +21,7 @@ export default function IndexShow({ url }: IndexShowProps) {
   const { data: index_data, error, isLoading } = useSWR(url, fetcher);
   return (
     <div>
-      <h3 className="text-center font-bold">チャンネル一覧</h3>
+      <h3 className="text-center font-bold">配信中 チャンネル一覧</h3>
       <div>
         <table className="table-auto md:table-fixed border-collapse border border-gray-400 ">
           <thead className="bg-gray-50">
