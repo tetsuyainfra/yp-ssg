@@ -1,0 +1,25 @@
+services:
+  yp-root:
+    image: peercast-root:latest #local dev
+    # image: tetsuyainfra/peercast-root:develop
+    ports:
+      - 7144 # for Peercast
+      # - 7143 # Not necessary since it is proxied from the http service.
+    command: |
+      /app/peercast-root
+      --api-bind 0.0.0.0
+      --create-dummy-channel=true
+      --index-txt-footer=/app/peercast-root_footer.toml
+      --allow-cors=http://localhost,http://localhost:1080
+
+  http:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./share/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 1080:80
+      - 7143:7143
+    links:
+      - yp-root
