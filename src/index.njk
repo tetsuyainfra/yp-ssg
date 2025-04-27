@@ -1,10 +1,43 @@
 ---
-layout: base.njk
 ---
 
-<main>
-  <p>ベストなSSGを探しに我々はアマゾンの奥地へと向かった。</p>
-</main>
-<nav>
-  <!-- あとでここに記事へのナビゲーションを付けます -->
-</nav>
+{% extends "base.njk" %}
+{% block header_block %}
+  {# IndexJsonComponent #}
+  {% if build.env === "production" %}
+    <script type="module" src="/vite-render_index.js"></script>
+    <script type="module" src="/vite-render_url.js"></script>
+  {% else %}
+    <script type="module">import {renderIndexShow} from "http://localhost:5173/src/client/render_index.tsx"</script>
+    <script type="module">import {renderUrl} from "http://localhost:5173/src/client/render_url.tsx"</script>
+  {% endif %}
+  <script>
+    window.addEventListener("load", (event) => {
+      renderIndexShow("channel_index", "{{ metadata.indexJsonUrl | safe}}")
+      renderUrl("copy_index_url", "{{ metadata.indexTxtUrl | safe }}", "YPブラウザ用URL")
+    });
+  </script>
+{% endblock header_block %}
+{% block content %}
+  <main>
+    <section class="bg-indigo-50 px-6 py-24 text-center rounded-xl">
+      <h1 class="mb-4 text-4xl font-extrabold">次世代のペカ体験を。</h1>
+      <p class="mb-6 text-lg">ここはみんなの実験場</p>
+      <a class="rounded-xl bg-indigo-600 px-6 py-3 text-white transition hover:bg-indigo-700 disabled:opacity-50"
+         href="/broadcast/">配信する</a>
+    </section>
+    <section class="py-6">
+      <div id="copy_index_url"></div>
+    </section>
+    <section class="pb-6">
+      <div id="channel_index">
+        <p>ベストなSSGを探しに我々はアマゾンの奥地へと向かった。</p>
+      </div>
+    </section>
+    <!--
+    {# {{ page | dump('\t') }} #}
+    {# {{ eleventy | dump('\t') }} #}
+metadata: {{ metadata | dump('\t') | safe}}
+    -->
+  </main>
+{% endblock content %}

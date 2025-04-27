@@ -19,7 +19,8 @@
   "[nunjucks]": {
     "editor.wordWrapColumn": 120,
     "editor.wordWrap": "bounded",
-    "editor.defaultFormatter": "monosans.djlint"
+    "editor.defaultFormatter": "monosans.djlint",
+    "editor.formatOnSave": false
     // "editor.defaultFormatter": "okitavera.vscode-nunjucks-formatter"
   }
 }

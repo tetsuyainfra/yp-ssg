@@ -93,6 +93,15 @@ wheels = [
 ]
 
 [[package]]
+name = "nginxfmt"
+version = "1.2.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/e8/4e/afb3f89bc6f2a71ffa9b9b15d26b6ed0fc85f700172f177ab7e76eaccbe8/nginxfmt-1.2.3.tar.gz", hash = "sha256:d7f13a6a6172a9267fe621a18102d014f099f2fe4702b0dc7a107f7d0cce0e0d", size = 9658 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/76/92/f5227b197cf9122960f1a16824e8a2240d859a076f1ce8c8fdbfd460da72/nginxfmt-1.2.3-py3-none-any.whl", hash = "sha256:9276e7084d20d6613e7db3a2e900c62dcdcd07e2f5639aa5016e871c0029af4f", size = 10652 },
+]
+
+[[package]]
 name = "pathspec"
 version = "0.12.1"
 source = { registry = "https://pypi.org/simple" }
@@ -168,7 +177,11 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "djlint" },
+    { name = "nginxfmt" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "djlint", specifier = ">=1.36.4" }]
+requires-dist = [
+    { name = "djlint", specifier = ">=1.36.4" },
+    { name = "nginxfmt", specifier = ">=1.2.3" },
+]

@@ -6,7 +6,9 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "djlint>=1.36.4",
+    "nginxfmt>=1.2.3",
 ]
 
 [tool.djlint]
 profile="nunjucks"
+ignore="H022" # ignore external https link

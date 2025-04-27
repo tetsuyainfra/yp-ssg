@@ -1,0 +1,25 @@
+---
+layout: base.njk
+title: 配信
+eleventyComputed:
+  title:  "{{ title }} | {{ metadata.title }}"
+  header_scripts: |
+    {% if build.env === "production" %}
+      <script type="module" src="/vite-render_url.js"></script>
+    {% else %}
+      <script type="module">import {renderUrl} from "http://localhost:5173/src/client/render_url.tsx"</script>
+    {% endif %}
+    <script>
+      window.addEventListener("load", (event) => {
+        renderUrl("copy_index_url", "{{ metadata.pcpUrl | safe }}", "PeerCast配信用URL")
+      });
+    </script>
+---
+
+<main>
+  <p>ここはアマゾンの奥地</p>
+  <div id="copy_index_url"></div>
+</main>
+<nav>
+  <!-- あとでここに記事へのナビゲーションを付けます -->
+</nav>
