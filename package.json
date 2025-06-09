@@ -15,7 +15,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "format:check": "prettier --check --ignore-path .gitignore './**/*.{js,ts,json,css}'",
     "format:fix": "prettier --write --ignore-path .gitignore './**/*.{js,ts,json,css}'",
-    "clean": "rimraf _site"
+    "clean": "node clean.js"
   },
   "keywords": [],
   "author": "",

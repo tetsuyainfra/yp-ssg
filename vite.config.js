@@ -17,7 +17,7 @@ export default defineConfig({
   ],
   // plugins: [react()],
   build: {
-    outDir: "_site",
+    outDir: process.env.OUTPUT_DIR || "_site",
     minify: false,
     rollupOptions: {
       input: {

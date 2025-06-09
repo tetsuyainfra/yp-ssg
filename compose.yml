@@ -1,0 +1,33 @@
+
+
+services:
+  site:
+    image: yp-ssg:latest
+    volumes:
+      - ./share/007144-nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    depends_on:
+      - yp
+      - yp-beta
+
+  yp:
+    image: tetsuyainfra/peercast-root:feature-root_update
+    command: >-
+      --port 7144
+      --api-bind 0.0.0.0
+      --api-port 7143
+      --allow-cors http://yp.007144.xyz
+      --create-dummy-channel true
+    ports:
+      - 0.0.0.0:7144:7144
+  yp-beta:
+    image: tetsuyainfra/peercast-root:feature-root_update
+    command: >-
+      --port 7144
+      --api-bind 0.0.0.0
+      --api-port 7143
+      --allow-cors http://yp-beta.007144.xyz
+      --create-dummy-channel true
+    ports:
+      - 0.0.0.0:17144:7144

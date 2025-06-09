@@ -1,0 +1,69 @@
+---
+layout: base.njk
+title: ここは何 ？
+eleventyComputed:
+  title:  "{{ title }} | {{ metadata.title }}"
+---
+
+<section class="bg-gray-50 p-8 rounded-lg shadow-lg max-w-6xl mx-auto">
+  <h2 class="text-3xl font-semibold text-gray-900 mb-4">ここはなに？</h2>
+  <p class="text-lg text-gray-700 leading-relaxed">
+    これは<a href="https://github.com/tetsuyainfra/peercast-re" class="text-blue-500 underline">PeerCast-Re</a>、
+    つまりPeerCast互換の新しいソフトウェアを開発するプロジェクトの一環だよ。 <br />
+    今君がアクセスしているこの<a href="https://github.com/tetsuyainfra/yp-ssg" class="text-blue-500 underline">YPサーバ（index.txtを配信してる）</a>も、その一部として動いてる。
+  </p>
+  <hr class="border-t-1 border-gray-300 my-4" />
+  <p class="text-lg text-gray-700 leading-relaxed">
+    PeerCastは、20年以上の歴史を持つ、日本屈指の動画配信プラットフォーム。 <br />
+    そんな重みある環境を、うかつに壊すわけにはいかない。 <br />
+    とにかく最優先なのはリレーを壊さないこと。 <br />
+    ピアキャストはリレーが生きてればなんとかなる。逆に、リレーが死んだら即終了。 <br />
+  </p>
+  <hr class="border-t-1 border-gray-300 my-4" />
+  <p class="text-lg text-gray-700 leading-relaxed">
+    じゃあどうする？ <br />
+    答えはシンプル。 <br />
+    新しい環境を丸ごと隔離する。 <br />
+  </p>
+  <hr class="border-t-1 border-gray-300 my-4" />
+  <p class="text-lg text-gray-700 leading-relaxed">
+    だから、この新しいYPサーバを立ち上げたってわけ。 <br />
+    これから作るPeerCast-Reは、当面この新YPだけに接続できるようにコーディングしていく。 <br />
+    慎重に、でも確実に、テストを積み上げながら完成を目指す。 <br />
+  </p>
+  <hr class="border-t-1 border-gray-300 my-4" />
+  <p class="text-lg text-gray-700 leading-relaxed">
+    ちなみに、現行のPeerCast互換ソフトウェアは、このYPに無条件で接続できるから安心してね。 <br />
+  </p>
+  <hr class="border-t-1 border-gray-300 my-4" />
+  <p class="text-lg text-gray-700 leading-relaxed">
+    まとめると── <br />
+    既存環境を一切壊さず、着実にPeerCast-Reを作り上げるための準備はもう始まってる。 <br />
+  </p>
+  <hr class="border-t-1 border-gray-300 my-4" />
+  <p class="text-lg text-gray-700 leading-relaxed">
+    以上、よろしく🔥<br />
+  </p>
+  <!-- ChatGptすごい。。。 -->
+</section>
+{# <main>
+  <section class="bg-gray-50 p-8 rounded-lg shadow-lg max-w-6xl mx-auto">
+  <h2 class="text-3xl font-semibold text-gray-900 mb-4">ここはなに？</h2>
+  <p class="text-lg text-gray-700 leading-relaxed">
+    私は<a href="https://github.com/tetsuyainfra/peercast-re" class="text-blue-500 underline">PeerCast-Re</a>という
+    <a href="https://ja.wikipedia.org/wiki/PeerCast" class="text-blue-500 underline">PeerCast</a>互換のソフトウェアを作成しています。
+    今、ご覧になっているYPサーバでindex.txtを配信しているソフトウェアもこの一部です。<br />
+    <br />
+    PeerCastは20年を超える歴史を誇っており、日本の屈指の動画配信プラットフォームと言えます。<br />
+    PeerCast-Reを実装するにあたり、一番気を付けなければならないのはこの歴史ある既存のピアキャスト環境を壊さないことです。<br />
+    もっと言うとリレーです。ピアキャストはリレーさえぶっ壊れなければ何とかなります。</br>
+    では、既存環境のリレーを壊さないようにするにはどうすればいいか。<br />
+    ソフトウェアを丸ごと別環境に隔離してしまえばいいと気づきました。そこでこのYPを実装しました。<br />
+    これから実装していくPeerCast-Reではしばらくの間、このYPだけに接続できるようにコーディングしていこうと考えています。<br />
+    もちろん現行のPeerCast互換のソフトウェアはこのYPに無条件で接続できます。
+    そうすることで既存環境のリレーを壊さずにテストすることができると考えています。<br />
+    <br />
+    以上
+  </p>
+  </section>
+</main> #}

@@ -1,7 +1,9 @@
 {
   "items": [
     { "url": "/", "title": "TOP" },
-    { "url": "/contact/", "title": "規約" }
+    { "url": "/contact/", "title": "規約" },
+    { "url": "/support/", "title": "サポート" },
+    { "url": "/whatis/", "title": "ここは何？" }
   ],
   "broadcast": {
     "url": "/broadcast/",

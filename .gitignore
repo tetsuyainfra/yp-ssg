@@ -1,4 +1,7 @@
+src/_styles/tailwind.css
+
 _site
+_sites
 
 # Python-generated files
 __pycache__/

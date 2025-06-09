@@ -1,6 +1,7 @@
 import React from "react";
 import useSWR from "swr";
 import { Temporal } from "temporal-polyfill";
+import { merge_url, OverrideParams } from "../utils/merge_url";
 
 const fetcher = (url: string) =>
   fetch(url)
@@ -14,11 +15,34 @@ const fetcher = (url: string) =>
     });
 
 interface IndexShowProps {
-  url: string;
+  url: string | OverrideParams;
 }
 
 export default function IndexShow({ url }: IndexShowProps) {
-  const { data: index_data, error, isLoading } = useSWR(url, fetcher);
+  let get_url = "";
+  if (typeof url === "string") {
+    get_url = url;
+  } else if (typeof url === "object") {
+    // TODO: 本当は型ガード関数を実装すべき
+    let u = merge_url(location.href, url);
+    get_url = u.href;
+  }
+  console.log("indexshow: ", get_url);
+  const { data: index_data, error, isLoading } = useSWR(get_url, fetcher);
+
+  function to_time(created_at: any) {
+    let date = Temporal.Instant.from(created_at);
+    const now = Temporal.Now.instant();
+    const duration = date.until(now, {
+      smallestUnit: "minutes",
+    });
+
+    const hh = String(duration.hours).padStart(2, "0");
+    const mm = String(duration.minutes).padStart(2, "0");
+
+    return `${hh}:${mm}`;
+  }
+
   return (
     <div>
       <h3 className="text-center font-bold">配信中 チャンネル一覧</h3>
@@ -55,15 +79,20 @@ export default function IndexShow({ url }: IndexShowProps) {
                     {c.number_of_relay}
                   </td>
                   <td className="border border-gray-300">
-                    {Temporal.Instant.from(c.created_at).toString({
+                    {/* {Temporal.Instant.from(c.created_at).toString({
                       timeZone: "Asia/Tokyo",
                       smallestUnit: "second",
-                    })}
+                    })} */}
+                    {to_time(c.created_at)}
                   </td>
                   <td className="border border-gray-300">{c.bitrate}</td>
                   <td className="border border-gray-300">{c.stream_ext}</td>
                   <td className="border border-gray-300">{c.stream_type}</td>
-                  <td className="border border-gray-300">{c.contact_url}</td>
+                  <td className="border border-gray-300">
+                    <a href={c.contact_url} className="hover:text-blue-600">
+                      {c.contact_url}
+                    </a>
+                  </td>
                   <td className="border border-gray-300">{!c.tracker_addr}</td>
                 </tr>
               ))}
@@ -73,3 +102,22 @@ export default function IndexShow({ url }: IndexShowProps) {
     </div>
   );
 }
+
+/*
+function relative(date: Temporal.ZonedDateTime): string {
+  const d = date.until(Temporal.Now.zonedDateTimeISO());
+  if (d.total("day") > 1) {
+    return d.round({ smallestUnit: "day" }).days + "日前";
+  }
+  if (d.total("hour") > 1) {
+    return d.round({ smallestUnit: "hour" }).hours + "時間前";
+  }
+  if (d.total("minute") > 1) {
+    return d.round({ smallestUnit: "minute" }).minutes + "分前";
+  }
+  if (d.total("second") > 1) {
+    return d.round({ smallestUnit: "second" }).seconds + "秒前";
+  }
+  return "今";
+}
+*/

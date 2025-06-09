@@ -1,0 +1,66 @@
+name: build CI
+
+on:
+  push:
+    branches:
+      #   - "main"
+      - "develop"
+      - "feature/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      node-version: 22.x
+      env_file_list: '["yp-007144-xyz.env", "yp-beta-007144-xyz.env"]' # GH Actionではリストの変数は使えない 一度JSONで書き出してjqで処理する
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ env.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.node-version }}
+          cache: "npm"
+      - run: npm ci
+      # - run: npm test
+      # - name: Get CONFIG NAME
+      #   id: split_name
+      #   run: |
+      #     field1=$(echo "${{ matrix.env_file }}" | cut -d'.' -f1)
+      #     echo "SPLIT_NAME=${field1}" >> $GITHUB_OUTPUT
+
+      - name: Build sites by configs
+        run: |
+          ITEMS=$(echo '${{ env.env_file_list }}' | jq -r '.[]')
+          for item in $ITEMS; do
+            echo process... $item
+            npm exec -c "env-cmd -f $item npm run build"
+          done
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            tetsuyainfra/yp-ssg
+          tags: |
+            type=ref,event=branch
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        id: push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: "./docker/Dockerfile.007144"
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  # build-yp:

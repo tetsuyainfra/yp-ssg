@@ -69,6 +69,7 @@ export default async function (eleventyConfig) {
   return {
     dir: {
       input: "src",
+      output: process.env.OUTPUT_DIR || "_site",
     },
 
     markdownTemplateEngine: "njk",

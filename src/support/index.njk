@@ -1,0 +1,40 @@
+---
+layout: base.njk
+title: サポート情報
+eleventyComputed:
+  title:  "{{ title }} | {{ metadata.title }}"
+---
+
+<section class="bg-gray-50 p-8 rounded-lg shadow-lg max-w-6xl mx-auto">
+  <h2 class="text-3xl font-semibold text-gray-900 mb-4">現在分かっている不具合</h2>
+  <p class="text-lg text-gray-700">
+    <ul class="list-inside list-disc">
+      <li class="list-disc list-inside">
+        pcypLite等で、index.txtが取得できない場合がある。
+        <ul class="list-inside list-disc pl-4">
+          <li>回避策: PeerCastStation, PeerCast-YT内臓のYPブラウザで利用する</li>
+        </ul>
+      </li>
+    </ul>
+  </p>
+</section>
+<section class="bg-gray-50 p-8 rounded-lg shadow-lg max-w-6xl mx-auto">
+  <h2 class="text-3xl font-semibold text-gray-900 mb-4">バグを発見したらこちらへ</h2>
+  <p class="text-lg text-gray-700 leading-relaxed">
+    <ul class="list-inside list-disc">
+      <li>
+        <a href="https://github.com/tetsuyainfra/yp-ssg/issues"
+        class="underline hover:bg-blue-500 hover:text-white">PeerCast-Re ⇒ https://github.com/tetsuyainfra/peercast-re/issues</a>
+      </li>
+      <li>
+        <a href="https://github.com/tetsuyainfra/yp-ssg/issues"
+        class="underline hover:bg-blue-500 hover:text-white">YellowPage ⇒ https://github.com/tetsuyainfra/yp-ssg/issues</a>
+      </li>
+      <li>
+        <a href="https://bbs.jpnkn.com/test/read.cgi/tetsuyainfra/1694271646/l50"
+        class="underline hover:bg-blue-500 hover:text-white">掲示板 ⇒ https://bbs.jpnkn.com/test/read.cgi/tetsuyainfra/1694271646/</a>
+      </li>
+    </ul>
+  </p>
+  {# <hr class="border-t-1 border-gray-300 my-4" /> #}
+</section>

@@ -3,9 +3,9 @@ Yellow page for peercast-root on SSG(StaticSiteGenerator)
 genreated by 11ty(eleventy)
 
 # TODO
-- siteName, indexTxtUrl, indexJsonUrlをJSONに埋め込む方法を作る
-- tailwind cssを使えるようにする
-- IndexChannelListを作る
+- github actions
+- docker build
+- 運用開始
 
 # how to build
 ```shell
@@ -20,8 +20,30 @@ $ npm run build
 # format
 $ npm run format:check
 $ npm run format:fix
+## nunjucks
+$ djlint --check src
+$ djlint --reformat src
+## nginxfmt
+$ nginxfmt share/nginx.conf
 
 # lint
+
+# build for yp.007144.xyz
+$ ./build.sh
+
+# docker run
+$ docker run --rm -it -p 80:80 yp-ssg:latest
+$ docker run --rm -it -p 80:80 -v ./share/007144-nginx.conf:/etc/nginx/nginx.conf yp-ssg:latest
+
+
+# check access
+curl http://localhost
+curl -H 'Host: yp.007144.xyz' http://localhost
+curl -H 'Host: yp-beta.007144.xyz' http://localhost
+
+curl --resolve yp.007144.xyz:80:127.0.0.1 http://yp.007144.xyz/config.json
+curl --resolve yp-beta.007144.xyz:80:127.0.0.1 http://yp-beta.007144.xyz/config.json
+
 ```
 
 # Directory
@@ -39,7 +61,7 @@ $ npm run format:fix
 # Tools
 using their programs 
 - nodejs for 11ty
-- python for Djlint(linter)
+- python for Djlint(linter), nginxfmt(nginx-config-formatter)
 - uv for Djlint(linter)
 
 
