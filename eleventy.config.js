@@ -4,6 +4,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import EleventyVitePlugin from '@11ty/eleventy-plugin-vite';
 import tailwindcss from '@tailwindcss/vite'
 import postcss from "postcss";
+import { compression } from 'vite-plugin-compression2'
 
 
 export default async function (eleventyConfig) {
@@ -18,9 +19,12 @@ export default async function (eleventyConfig) {
       plugins: [
         tailwindcss(),
         // checkViteConfig()
+        compression({
+          exclude: [/\.map$/, /\.html$/],
+        }),
       ],
       build: {
-        cssMinify: false,
+        // cssMinify: false,
       }
     },
   });
