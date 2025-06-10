@@ -3,10 +3,12 @@ src/_styles/tailwind.css
 _site
 _sites
 
+build/*
+!build/.keep_dir
+
 # Python-generated files
 __pycache__/
 *.py[oc]
-build/
 dist/
 wheels/
 *.egg-info

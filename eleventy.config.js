@@ -1,13 +1,45 @@
 import "tsx/esm";
 import { renderToStaticMarkup } from "react-dom/server";
 
+import EleventyVitePlugin from '@11ty/eleventy-plugin-vite';
+import tailwindcss from '@tailwindcss/vite'
 import postcss from "postcss";
-import tailwindcss from "@tailwindcss/postcss";
-import autoprefixer from "autoprefixer";
+
+function myPlugin() {
+  let config = null
+  return {
+    name: 'my-plugin',
+
+    configResolved(resolvedConfig) {
+      config = resolvedConfig
+      console.log('最終的な設定だよ👉', config)
+    },
+
+    buildStart() {
+      console.log('ビルド開始時のルートは👉', config)
+    },
+  }
+}
 
 export default async function (eleventyConfig) {
   // Disable automatic use of your .gitignore
   //   eleventyConfig.setUseGitIgnore(false);
+
+  // doc: https://www.11ty.dev/docs/server-vite/
+  eleventyConfig.addPlugin(EleventyVitePlugin, {
+    tempFolderName: "build/.11ty-vite",
+
+    viteOptions: {
+      plugins: [tailwindcss(), myPlugin()],
+      build: {
+        cssMinify: false,
+      }
+    },
+  });
+
+  // process by Vite
+  eleventyConfig.addPassthroughCopy('src/assets');
+  eleventyConfig.addPassthroughCopy('src/client');
 
   // Merge data instead of overriding
   eleventyConfig.setDataDeepMerge(true);
@@ -24,26 +56,7 @@ export default async function (eleventyConfig) {
   });
   eleventyConfig.addTemplateFormats("11ty.ts,11ty.tsx");
 
-  //compile tailwind before eleventy processes the files
-  // eleventyConfig.on("eleventy.before", async () => {
-  //   const tailwindInputPath = path.resolve("./src/assets/styles/index.css");
-  //   const tailwindOutputPath = "./dist/assets/styles/index.css";
-  //   const cssContent = fs.readFileSync(tailwindInputPath, "utf8");
-  //   const outputDir = path.dirname(tailwindOutputPath);
-  //   if (!fs.existsSync(outputDir)) {
-  //     fs.mkdirSync(outputDir, { recursive: true });
-  //   }
 
-  //   const result = await processor.process(cssContent, {
-  //     from: tailwindInputPath,
-  //     to: tailwindOutputPath,
-  //   });
-  //   fs.writeFileSync(tailwindOutputPath, result.css);
-  // });
-
-  eleventyConfig.addWatchTarget("./src/client/");
-
-  eleventyConfig.addWatchTarget("./src/_styles/");
   eleventyConfig.addNunjucksAsyncFilter("postcss", (cssCode, done) => {
     postcss([])
       // .process(cssCode, { from: "a.css", to: "output.css" })
@@ -69,7 +82,7 @@ export default async function (eleventyConfig) {
   return {
     dir: {
       input: "src",
-      output: process.env.OUTPUT_DIR || "_site",
+      output: process.env.OUTPUT_DIR || "build/_site",
     },
 
     markdownTemplateEngine: "njk",

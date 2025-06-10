@@ -8,12 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@types/react':
-        specifier: ^19.1.2
-        version: 19.1.6
-      '@types/react-dom':
-        specifier: ^19.1.2
-        version: 19.1.6(@types/react@19.1.6)
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -30,6 +24,9 @@ importers:
       '@11ty/eleventy':
         specifier: ^3.0.0
         version: 3.1.1
+      '@11ty/eleventy-plugin-vite':
+        specifier: ^6.0.0
+        version: 6.0.0(jiti@2.4.2)(lightningcss@1.30.1)(tsx@4.19.4)
       '@gfx/zopfli':
         specifier: ^1.0.15
         version: 1.0.15
@@ -39,6 +36,15 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.1.4
         version: 4.1.8
+      '@tailwindcss/vite':
+        specifier: ^4.1.8
+        version: 4.1.8(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(tsx@4.19.4))
+      '@types/react':
+        specifier: ^19.1.2
+        version: 19.1.6
+      '@types/react-dom':
+        specifier: ^19.1.2
+        version: 19.1.6(@types/react@19.1.6)
       '@vitejs/plugin-react':
         specifier: ^4.4.1
         version: 4.5.1(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(tsx@4.19.4))
@@ -91,6 +97,10 @@ packages:
 
   '@11ty/eleventy-plugin-bundle@3.0.6':
     resolution: {integrity: sha512-wlEIMa1SEe6HE6ZyREEnPQiTw72337a2MPkyn0D1IzrqHrKU9euB17mv27LnnnyKvMJamCCqtU0985F5yyDL8g==}
+    engines: {node: '>=18'}
+
+  '@11ty/eleventy-plugin-vite@6.0.0':
+    resolution: {integrity: sha512-ZnRKq0V5Dk5j4wQkalIJ08PTdSHKrSToA3w6ibBjjxLKVUurv/c2Cj06xJHBKOQwf9tPyK2N5Dj0fvwmA1jygA==}
     engines: {node: '>=18'}
 
   '@11ty/eleventy-utils@2.0.7':
@@ -674,6 +684,11 @@ packages:
 
   '@tailwindcss/postcss@4.1.8':
     resolution: {integrity: sha512-vB/vlf7rIky+w94aWMw34bWW1ka6g6C3xIOdICKX2GC0VcLtL6fhlLiafF0DVIwa9V6EHz8kbWMkS2s2QvvNlw==}
+
+  '@tailwindcss/vite@4.1.8':
+    resolution: {integrity: sha512-CQ+I8yxNV5/6uGaJjiuymgw0kEQiNKRinYbZXPdx1fk5WgiyReG0VaUx/Xq6aVNSUNJFzxm6o8FNKS5aMaim5A==}
+    peerDependencies:
+      vite: ^5.2.0 || ^6
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -2424,6 +2439,23 @@ snapshots:
       - posthtml
       - supports-color
 
+  '@11ty/eleventy-plugin-vite@6.0.0(jiti@2.4.2)(lightningcss@1.30.1)(tsx@4.19.4)':
+    dependencies:
+      '@11ty/eleventy-utils': 2.0.7
+      vite: 6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(tsx@4.19.4)
+    transitivePeerDependencies:
+      - '@types/node'
+      - jiti
+      - less
+      - lightningcss
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - terser
+      - tsx
+      - yaml
+
   '@11ty/eleventy-utils@2.0.7': {}
 
   '@11ty/eleventy@3.1.1':
@@ -2928,6 +2960,13 @@ snapshots:
       '@tailwindcss/oxide': 4.1.8
       postcss: 8.5.4
       tailwindcss: 4.1.8
+
+  '@tailwindcss/vite@4.1.8(vite@6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(tsx@4.19.4))':
+    dependencies:
+      '@tailwindcss/node': 4.1.8
+      '@tailwindcss/oxide': 4.1.8
+      tailwindcss: 4.1.8
+      vite: 6.3.5(jiti@2.4.2)(lightningcss@1.30.1)(tsx@4.19.4)
 
   '@types/babel__core@7.20.5':
     dependencies:
