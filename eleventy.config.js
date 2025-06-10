@@ -6,9 +6,6 @@ import tailwindcss from '@tailwindcss/vite'
 import postcss from "postcss";
 import { compression } from 'vite-plugin-compression2'
 
-import { DeepCopy, Merge } from "@11ty/eleventy-utils";
-
-import fs from "fs";
 
 export default async function (eleventyConfig) {
   // Disable automatic use of your .gitignore
