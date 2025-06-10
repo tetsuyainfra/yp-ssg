@@ -5,21 +5,6 @@ import EleventyVitePlugin from '@11ty/eleventy-plugin-vite';
 import tailwindcss from '@tailwindcss/vite'
 import postcss from "postcss";
 
-function myPlugin() {
-  let config = null
-  return {
-    name: 'my-plugin',
-
-    configResolved(resolvedConfig) {
-      config = resolvedConfig
-      console.log('最終的な設定だよ👉', config)
-    },
-
-    buildStart() {
-      console.log('ビルド開始時のルートは👉', config)
-    },
-  }
-}
 
 export default async function (eleventyConfig) {
   // Disable automatic use of your .gitignore
@@ -30,7 +15,10 @@ export default async function (eleventyConfig) {
     tempFolderName: "build/.11ty-vite",
 
     viteOptions: {
-      plugins: [tailwindcss(), myPlugin()],
+      plugins: [
+        tailwindcss(),
+        // checkViteConfig()
+      ],
       build: {
         cssMinify: false,
       }
@@ -88,4 +76,20 @@ export default async function (eleventyConfig) {
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",
   };
+}
+
+function checkViteConfig() {
+  let config = null
+  return {
+    name: 'my-plugin',
+
+    configResolved(resolvedConfig) {
+      config = resolvedConfig
+      console.log('最終的な設定だよ👉', config)
+    },
+
+    buildStart() {
+      console.log('ビルド開始時のルートは👉', config)
+    },
+  }
 }
