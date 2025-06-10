@@ -4,14 +4,14 @@
   "main": "index.js",
   "scripts": {
     "build": "npm-run-all clean build:11ty",
-    "build:11ty": "NODE_ENV=production eleventy",
+    "build:11ty": "NODE_ENV=production env-cmd eleventy",
     "dev": "npm-run-all --parallel dev:*",
-    "dev:11ty": "eleventy --serve",
-    "serve": "serve ./build/_site",
+    "dev:11ty": "env-cmd eleventy --serve",
+    "serve": "env-cmd serve ${OUTPUT_DIR}",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format:check": "prettier --check --ignore-path .gitignore './**/*.{js,ts,json,css}'",
     "format:fix": "prettier --write --ignore-path .gitignore './**/*.{js,ts,json,css}'",
-    "clean": "node clean.js"
+    "clean": "env-cmd node clean.js"
   },
   "keywords": [],
   "author": "",

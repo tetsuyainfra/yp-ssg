@@ -4,7 +4,8 @@ COPY . /app
 WORKDIR /app
 
 
-RUN chown -R node:node /app && \
+RUN cp /app/.env.example /app/.env && \
+    chown -R node:node /app && \
     npm install -g pnpm@latest && \
     pnpm install --frozen-lockfile
 
