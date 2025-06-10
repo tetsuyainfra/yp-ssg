@@ -6,17 +6,26 @@ import tailwindcss from '@tailwindcss/vite'
 import postcss from "postcss";
 import { compression } from 'vite-plugin-compression2'
 
+import { DeepCopy, Merge } from "@11ty/eleventy-utils";
+
+import fs from "fs";
 
 export default async function (eleventyConfig) {
   // Disable automatic use of your .gitignore
   //   eleventyConfig.setUseGitIgnore(false);
+  // eleventyConfig.addPlugin(
+  //   MyPluginWrap, {
+  // })
 
   // doc: https://www.11ty.dev/docs/server-vite/
   eleventyConfig.addPlugin(EleventyVitePlugin, {
     tempFolderName: "build/.11ty-vite",
 
     viteOptions: {
-      publicDir: "build/public",
+      // [@11ty/eleventy-plugin-vite]plugin内でrootが指定される
+      // root:  -> build/.11ty-vite
+      // ↑のrootから見たpublicDirの場所が下になる。(つまり、eleventy側ではpublicに出力するようにすれば万事うまくいく)
+      publicDir: "public",
       assetsInclude: ['**/*.json'],
       plugins: [
         tailwindcss(),
@@ -99,3 +108,26 @@ function checkViteConfig() {
     },
   }
 }
+// function MyPluginWrap(eleventyConfig, pluginOptions = {}) {
+//   let myPlguin = new MyPlugin(eleventyConfig, pluginOptions);
+//   eleventyConfig.on("eleventy.after", async ({ dir, runMode, outputMode, results }) => {
+//     fs.readdir("build/public", (err, files) => {
+//       if (err) {
+//         console.error("Error reading directory:", err);
+//         return;
+//       }
+//       files.forEach(file => {
+//         console.log("PublicFile:", file);
+//       });
+//     });
+//     fs.readdir(dir.output, (err, files) => {
+//       if (err) {
+//         console.error("Error reading directory:", err);
+//         return;
+//       }
+//       files.forEach(file => {
+//         console.log("File:", file);
+//       });
+//     });
+//   });
+// }
