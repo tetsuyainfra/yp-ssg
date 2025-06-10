@@ -1,4 +1,6 @@
 ---
-permalink: /config.json
+permalink: build/public/config.json
+# 外部のディレクトリに書き出す
+permalinkBypassOutputDir: true
 ---
 {{ metadata | dump(2) | safe }}

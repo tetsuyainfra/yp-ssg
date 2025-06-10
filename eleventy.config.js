@@ -16,6 +16,8 @@ export default async function (eleventyConfig) {
     tempFolderName: "build/.11ty-vite",
 
     viteOptions: {
+      publicDir: "build/public",
+      assetsInclude: ['**/*.json'],
       plugins: [
         tailwindcss(),
         // checkViteConfig()
@@ -25,7 +27,7 @@ export default async function (eleventyConfig) {
       ],
       build: {
         // cssMinify: false,
-      }
+      },
     },
   });
 
