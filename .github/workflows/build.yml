@@ -13,7 +13,6 @@ jobs:
 
     env:
       node-version: 22.x
-      env_file_list: '["yp-007144-xyz.env", "yp-beta-007144-xyz.env"]' # GH Actionではリストの変数は使えない 一度JSONで書き出してjqで処理する
 
     steps:
       - uses: actions/checkout@v4
@@ -22,7 +21,7 @@ jobs:
         with:
           node-version: ${{ env.node-version }}
           cache: "npm"
-      - run: npm ci
+      # - run: npm ci
       # - run: npm test
       # - name: Get CONFIG NAME
       #   id: split_name
@@ -30,13 +29,13 @@ jobs:
       #     field1=$(echo "${{ matrix.env_file }}" | cut -d'.' -f1)
       #     echo "SPLIT_NAME=${field1}" >> $GITHUB_OUTPUT
 
-      - name: Build sites by configs
-        run: |
-          ITEMS=$(echo '${{ env.env_file_list }}' | jq -r '.[]')
-          for item in $ITEMS; do
-            echo process... $item
-            npm exec -c "env-cmd -f $item npm run build"
-          done
+      # - name: Build sites by configs
+      #   run: |
+      #     ITEMS=$(echo '${{ env.env_file_list }}' | jq -r '.[]')
+      #     for item in $ITEMS; do
+      #       echo process... $item
+      #       npm exec -c "env-cmd -f $item npm run build"
+      #     done
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -58,9 +57,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: "./docker/Dockerfile.007144"
+          file: "./docker/Dockerfile"
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  # build-yp:
