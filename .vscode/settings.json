@@ -1,12 +1,10 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-
   "emmet.includeLanguages": {
     "njk": "html",
     "nunjucks": "html"
   },
-
   "[markdown]": {
     "editor.wordWrap": "bounded",
     "editor.quickSuggestions": {
@@ -15,12 +13,14 @@
       "other": "off"
     }
   },
-
   "[nunjucks]": {
     "editor.wordWrapColumn": 120,
     "editor.wordWrap": "bounded",
     "editor.defaultFormatter": "monosans.djlint",
     "editor.formatOnSave": false
     // "editor.defaultFormatter": "okitavera.vscode-nunjucks-formatter"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   }
 }
