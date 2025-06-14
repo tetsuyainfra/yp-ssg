@@ -17,14 +17,10 @@ eleventyComputed:
     </script> #}
     <script type="module">
       import {renderHttpUrl} from "/client/render_url.tsx"
-      import {renderIndexShow} from "/client/render_index.tsx"
-      window.addEventListener("load", (event) => {
-        let json_url = {{ metadata.indexJsonUrlParam  | dump | safe }};
-        let txt_url = {{ metadata.indexTxtUrlParam | dump | safe }};
-        let siteHttps = {{ metadata.siteHttps | dump | safe }};
 
-        renderIndexShow("channel_index", json_url);
-        renderHttpUrl("copy_index_url", txt_url, siteHttps, "YPブラウザ用URL")
+      window.addEventListener("load", (event) => {
+        let pcp_url = {{ metadata.pcpUrl |  dump | safe }};
+        renderPcpUrl("copy_index_url", pcp_url, "PeerCast配信用URL")
       });
     </script>
 ---
