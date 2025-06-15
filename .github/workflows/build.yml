@@ -84,9 +84,9 @@ jobs:
             "content": "[${{ github.repository }}]ビルドが完了しました！ ${{ env.ACTION_URL }}"
           }'
           ${{ secrets.DISCORD_WEBHOOK_URL }}
-      ## 失敗した場合
-      - name: Notify failed to Discord
-        if: ${{ success() }}
+      ## 失敗していた場合
+      - name: Notify failure to Discord
+        if: ${{ failure() }}
         env:
           ACTION_URL: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
         run: >-
