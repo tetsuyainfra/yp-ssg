@@ -75,7 +75,7 @@ jobs:
           curl -H "Content-Type: application/json"
           -X POST
           -d '{
-            "content": "ビルドが完了しました！ ${{ ACTION_URL }}"
+            "content": "ビルドが完了しました！ ${{ env.ACTION_URL }}"
           }'
           ${{ secrets.DISCORD_WEBHOOK_URL }}
 
