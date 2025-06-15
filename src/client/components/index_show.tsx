@@ -58,8 +58,9 @@ export default function IndexShow({ url }: IndexShowProps) {
               <th className="border border-gray-300">リレー数</th>
               <th className="border border-gray-300">配信時間</th>
               <th className="border border-gray-300">ビットレート(kbps)</th>
+              <th className="border border-gray-300">タイプ</th>
               <th className="border border-gray-300">ファイル拡張子</th>
-              <th className="border border-gray-300">ファイルタイプ</th>
+              <th className="border border-gray-300">ファイルタイプ(MIME)</th>
               <th className="border border-gray-300">コンタクトURL</th>
               <th className="border border-gray-300">接続先(非表示)</th>
             </tr>
@@ -86,6 +87,7 @@ export default function IndexShow({ url }: IndexShowProps) {
                     {to_time(c.created_at)}
                   </td>
                   <td className="border border-gray-300">{c.bitrate}</td>
+                  <td className="border border-gray-300">{c.type}</td>
                   <td className="border border-gray-300">{c.stream_ext}</td>
                   <td className="border border-gray-300">{c.stream_type}</td>
                   <td className="border border-gray-300">
