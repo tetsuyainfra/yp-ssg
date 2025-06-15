@@ -1,0 +1,26 @@
+name: CI notify
+
+# Only trigger, when the build workflow succeeded
+on:
+  workflow_run:
+    workflows: ["CI build"]
+    types:
+      - completed
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    environment:
+      TO_URL: "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Notify Slack and send eMail
+        run: >-
+          curl -H "Content-Type: application/json"
+          -X POST
+          -d '{
+            "content": "ビルドが完了しました！ ${{ TO_URL }}"
+          }'
+          ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+
