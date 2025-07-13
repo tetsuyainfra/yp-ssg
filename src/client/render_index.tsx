@@ -2,7 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import IndexShow from "./components/index_show";
 
-export function renderIndexShow(id: string, url: string) {
+export function renderIndexShow(id: string, url: string, host: string) {
   console.log(`renderIndexShow(${id}, ${url})`);
   const domNode = document.getElementById(id);
   if (domNode) {
