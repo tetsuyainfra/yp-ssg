@@ -11,24 +11,40 @@ services:
     depends_on:
       - yp
       - yp-beta
-
   yp:
     image: tetsuyainfra/peercast-root:feature-portcheck
     command: >-
       --port 7144
       --api-bind 0.0.0.0
       --api-port 7143
-      --allow-cors http://yp.007144.xyz
+      --yp-name-space devyp
+      --redis-url redis://redis:6379
+      --redis-master-key yproot
+      --allow-cors http://localhost:3000,http://localhost:8080
       --create-dummy-channel true
+      --index-txt-footer /app/peercast-root_footer.toml
     ports:
       - 0.0.0.0:7144:7144
+      - 0.0.0.0:7143:7143
+    depends_on:
+      - redis
+
   yp-beta:
     image: tetsuyainfra/peercast-root:feature-portcheck
     command: >-
       --port 7144
       --api-bind 0.0.0.0
       --api-port 7143
-      --allow-cors http://yp-beta.007144.xyz
+      --yp-name-space devyp
+      --redis-url redis://redis:6379
+      --redis-master-key yproot
+      --allow-cors http://localhost:3000,http://localhost:8080
       --create-dummy-channel true
     ports:
       - 0.0.0.0:17144:7144
+    depends_on:
+      - redis
+  redis:
+    image: redis:alpine
+    ports:
+      - "16379:6379"
