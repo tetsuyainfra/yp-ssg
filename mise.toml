@@ -1,6 +1,15 @@
-# [env]
-# _.python.venv = { path = ".venv", create = true }
+[env]
+_.python.venv = { path = ".venv", create = true }
 
-[settings]
-python.uv_venv_auto = true
+[tools]
+node = "22"
+pnpm = "latest"
+python = "3.13"
+uv = "latest"
 
+[tasks.install]
+description = "Install packages"
+run = [
+    "pnpm install",
+    "uv sync"
+]

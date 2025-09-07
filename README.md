@@ -1,42 +1,55 @@
 # YP-SSG
 Yellow page for peercast-root on SSG(StaticSiteGenerator)
 genreated by 11ty(eleventy)
+[Docker tetsuyainfra/yp-ssg](https://hub.docker.com/r/tetsuyainfra/yp-ssg/tags)
 
 # TODO
 - github actions
 - docker build
 - 運用開始
 
+# how to prepare
+```shell
+# git clone then...
+$ cd yp-ssg
+
+# install tools
+mise install
+
+# install packages from package.json
+mise run install
+```
+
 # how to build
 ```shell
-# Install mise
-$ cd yp-ssg
-# create venv automatically
-
-# build/serve
-$ npm run dev
-$ npm run build
-
-# format
-$ npm run format:check
-$ npm run format:fix
-## nunjucks
-$ djlint --check src
-$ djlint --reformat src
-## nginxfmt
-$ nginxfmt share/nginx.conf
-
-# lint
-
-# build for yp.007144.xyz
+# build container
 $ ./build.sh
 
 # docker run
-$ docker run --rm -it -p 80:80 yp-ssg:latest
-$ docker run --rm -it -p 80:80 -v ./share/007144-nginx.conf:/etc/nginx/nginx.conf yp-ssg:latest
+$ docker run --rm -it yp-ssg:latest npm run build
+$ docker run --rm -it -p 8080:8080 yp-ssg:latest npm run dev
+
+# build site
+$ ./build.sh
+$ ls -la build
 
 
-# check access
+
+# In container
+## build/serve
+$ npm run dev
+$ npm run build
+
+## format
+$ npm run format:check
+$ npm run format:fix
+### nunjucks
+$ djlint --check src
+$ djlint --reformat src
+### nginxfmt
+$ nginxfmt share/nginx.conf
+
+# check access 
 curl http://localhost
 curl -H 'Host: yp.007144.xyz' http://localhost
 curl -H 'Host: yp-beta.007144.xyz' http://localhost
@@ -45,6 +58,12 @@ curl --resolve yp.007144.xyz:80:127.0.0.1 http://yp.007144.xyz/config.json
 curl --resolve yp-beta.007144.xyz:80:127.0.0.1 http://yp-beta.007144.xyz/config.json
 
 ```
+
+
+# 注意
+- output directoryは build/HOGE に指定する必要がある
+  - 11tyのVitePluginにてコンパイルする際一度、build/.11ty-tmpに出力し、その後renameしている。
+  - /appはDocker内のマウント、出力を-v ./tmp:/app/buildでマウントしている時、違うマウント先となりrenameできない
 
 # Directory
 - src

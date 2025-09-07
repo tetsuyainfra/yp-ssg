@@ -2,6 +2,8 @@ import React from "react";
 import useSWR from "swr";
 import { Temporal } from "temporal-polyfill";
 import { merge_url, OverrideParams } from "../utils/merge_url";
+import PortConfig from "./port_config";
+import { useCookies } from "react-cookie";
 
 const fetcher = (url: string) =>
   fetch(url)
@@ -18,7 +20,34 @@ interface IndexShowProps {
   url: string | OverrideParams;
 }
 
+interface CookieValues {
+  port?: number
+  test?: string
+}
+
+const COOKIE_NAME = "peercast-port"
+
+
+function to_time(created_at: any) {
+  let date = Temporal.Instant.from(created_at);
+  const now = Temporal.Now.instant();
+  const duration = date.until(now, {
+    smallestUnit: "minutes",
+  });
+
+  const hh = String(duration.hours).padStart(2, "0");
+  const mm = String(duration.minutes).padStart(2, "0");
+
+  return `${hh}:${mm}`;
+}
+
+type CookieKey = "port"  // | "newKey" ;
+
 export default function IndexShow({ url }: IndexShowProps) {
+  const [cookies, setCookie, removeCookie] = useCookies<CookieKey, CookieValues>([]);
+  console.log('cookies', cookies);
+  let port = cookies.port || 7144;
+
   let get_url = "";
   if (typeof url === "string") {
     get_url = url;
@@ -27,27 +56,24 @@ export default function IndexShow({ url }: IndexShowProps) {
     let u = merge_url(location.href, url);
     get_url = u.href;
   }
+  {
+    let u = new URL(get_url);
+    u.searchParams.set('Host', `localhost:${port}`)
+    get_url = u.href
+  }
   console.log("indexshow: ", get_url);
+
   const { data: index_data, error, isLoading } = useSWR(get_url, fetcher);
 
-  function to_time(created_at: any) {
-    let date = Temporal.Instant.from(created_at);
-    const now = Temporal.Now.instant();
-    const duration = date.until(now, {
-      smallestUnit: "minutes",
-    });
-
-    const hh = String(duration.hours).padStart(2, "0");
-    const mm = String(duration.minutes).padStart(2, "0");
-
-    return `${hh}:${mm}`;
+  function setPortNumber(new_port: number) {
+    setCookie('port', new_port)
   }
 
   return (
     <div>
       <h3 className="text-center font-bold">配信中 チャンネル一覧</h3>
       <div>
-        <table className="table-auto md:table-fixed border-collapse border border-gray-400 ">
+        <table className="table-auto md:table-fixed border-collapse border border-gray-400 mb-5">
           <thead className="bg-gray-50">
             <tr>
               <th className="border border-gray-300">チャンネル名</th>
@@ -58,8 +84,9 @@ export default function IndexShow({ url }: IndexShowProps) {
               <th className="border border-gray-300">リレー数</th>
               <th className="border border-gray-300">配信時間</th>
               <th className="border border-gray-300">ビットレート(kbps)</th>
+              <th className="border border-gray-300">タイプ</th>
               <th className="border border-gray-300">ファイル拡張子</th>
-              <th className="border border-gray-300">ファイルタイプ</th>
+              <th className="border border-gray-300">ファイルタイプ(MIME)</th>
               <th className="border border-gray-300">コンタクトURL</th>
               <th className="border border-gray-300">接続先(非表示)</th>
             </tr>
@@ -86,6 +113,7 @@ export default function IndexShow({ url }: IndexShowProps) {
                     {to_time(c.created_at)}
                   </td>
                   <td className="border border-gray-300">{c.bitrate}</td>
+                  <td className="border border-gray-300">{c.type}</td>
                   <td className="border border-gray-300">{c.stream_ext}</td>
                   <td className="border border-gray-300">{c.stream_type}</td>
                   <td className="border border-gray-300">
@@ -98,6 +126,7 @@ export default function IndexShow({ url }: IndexShowProps) {
               ))}
           </tbody>
         </table>
+        <PortConfig default_port={port} changePortNumber={setPortNumber} />
       </div>
     </div>
   );

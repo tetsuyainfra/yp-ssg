@@ -3,7 +3,9 @@ SCRIPT_ROOT=$(cd $(dirname $0);pwd)
 set -ex
 
 pushd $SCRIPT_ROOT
-    ./build.site_with_env.sh yp-007144-xyz.env
-    ./build.site_with_env.sh yp-beta-007144-xyz.env
-    ./build.docker.sh docker/Dockerfile.007144
+    ./_build-container.sh
+    docker run --rm -it \
+        -v ./build:/app/build \
+        yp-ssg:latest \
+        npm run build
 popd

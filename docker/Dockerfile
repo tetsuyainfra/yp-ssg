@@ -1,10 +1,12 @@
-FROM nginx:1.28-bookworm
-# FROM nginx:1.28-bookworm-perl
-# FROM nginx:1.28-bookworm-otel
-# perl: Perl
-# otel: OpenTelemetory
+FROM node:24-alpine
 
-COPY ./_site /usr/share/nginx/html
-COPY ./share/nginx.conf /etc/nginx/nginx.conf
+COPY . /app
+WORKDIR /app
 
-EXPOSE 80 7143
+
+RUN cp /app/.env.example /app/.env && \
+    chown -R node:node /app && \
+    npm install -g pnpm@latest && \
+    pnpm install --frozen-lockfile
+
+USER node

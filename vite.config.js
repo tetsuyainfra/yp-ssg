@@ -15,18 +15,22 @@ export default defineConfig({
     // }),
     // compression({ algorithm: "brotliCompress" }),
   ],
-  // plugins: [react()],
   build: {
-    outDir: process.env.OUTPUT_DIR || "_site",
     minify: false,
-    rollupOptions: {
-      input: {
-        render_index: "/src/client/render_index.js",
-        render_url: "/src/client/render_url.js",
-      },
-      output: {
-        entryFileNames: "vite-[name].js",
-      },
-    },
-  },
+    cssMinify: false
+  }
+  // plugins: [react()],
+  // build: {
+  //   outDir: process.env.OUTPUT_DIR || "_site",
+  //   minify: false,
+  //   rollupOptions: {
+  //     input: {
+  //       render_index: "/src/client/render_index.js",
+  //       render_url: "/src/client/render_url.js",
+  //     },
+  //     output: {
+  //       entryFileNames: "vite-[name].js",
+  //     },
+  //   },
+  // },
 });

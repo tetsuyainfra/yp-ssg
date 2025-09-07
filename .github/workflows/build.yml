@@ -1,4 +1,4 @@
-name: build CI
+name: CI build
 
 on:
   push:
@@ -13,16 +13,16 @@ jobs:
 
     env:
       node-version: 22.x
-      env_file_list: '["yp-007144-xyz.env", "yp-beta-007144-xyz.env"]' # GH Actionではリストの変数は使えない 一度JSONで書き出してjqで処理する
 
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ env.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.node-version }}
-          cache: "npm"
-      - run: npm ci
+
+      # - name: Use Node.js ${{ env.node-version }}
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: ${{ env.node-version }}
+      #     cache: "npm"
+      # - run: npm ci
       # - run: npm test
       # - name: Get CONFIG NAME
       #   id: split_name
@@ -30,13 +30,13 @@ jobs:
       #     field1=$(echo "${{ matrix.env_file }}" | cut -d'.' -f1)
       #     echo "SPLIT_NAME=${field1}" >> $GITHUB_OUTPUT
 
-      - name: Build sites by configs
-        run: |
-          ITEMS=$(echo '${{ env.env_file_list }}' | jq -r '.[]')
-          for item in $ITEMS; do
-            echo process... $item
-            npm exec -c "env-cmd -f $item npm run build"
-          done
+      # - name: Build sites by configs
+      #   run: |
+      #     ITEMS=$(echo '${{ env.env_file_list }}' | jq -r '.[]')
+      #     for item in $ITEMS; do
+      #       echo process... $item
+      #       npm exec -c "env-cmd -f $item npm run build"
+      #     done
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -58,9 +58,41 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: "./docker/Dockerfile.007144"
+          file: "./docker/Dockerfile"
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  # build-yp:
+  notify:
+    # 依存するjob
+    needs: build
+    # needsの結果によらず必ず実行する
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      # - uses: actions/checkout@v2
+      # Discordへの通知
+      ## 成功した場合
+      - name: Notify success to Discord
+        if: ${{ success() }}
+        env:
+          ACTION_URL: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        run: >-
+          curl -H "Content-Type: application/json"
+          -X POST
+          -d '{
+            "content": "[${{ github.repository }}]ビルドが完了しました！ ${{ env.ACTION_URL }}"
+          }'
+          ${{ secrets.DISCORD_WEBHOOK_URL }}
+      ## 失敗していた場合
+      - name: Notify failure to Discord
+        if: ${{ failure() }}
+        env:
+          ACTION_URL: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        run: >-
+          curl -H "Content-Type: application/json"
+          -X POST
+          -d '{
+            "content": "[${{ github.repository }}]ビルドが失敗しました！ ${{ env.ACTION_URL }}"
+          }'
+          ${{ secrets.DISCORD_WEBHOOK_URL }}
