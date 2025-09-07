@@ -8,13 +8,22 @@ genreated by 11ty(eleventy)
 - docker build
 - 運用開始
 
-# how to build
+# how to prepare
 ```shell
-# Install mise
+# git clone then...
 $ cd yp-ssg
 
+# install tools
+mise install
+
+# install packages from package.json
+mise run install
+```
+
+# how to build
+```shell
 # build container
-$ ./build-container
+$ ./build.sh
 
 # docker run
 $ docker run --rm -it yp-ssg:latest npm run build
